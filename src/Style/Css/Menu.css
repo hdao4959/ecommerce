@@ -1,0 +1,52 @@
+#menu {
+  display: flex;
+  margin: 10px 0;
+  justify-content: space-around;
+}
+
+#menu-left {
+  width: 200px;
+  margin: 0 10px;
+}
+
+#links-category {
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  overflow-y: auto;
+}
+
+
+.link-category {
+  padding: 0 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.link-category span {
+
+  padding: 0 5px;
+
+}
+
+.link-category:hover {
+  background-color: rgb(233, 233, 233);
+  color: inherit;
+  font-weight: bold;
+}
+
+
+#menu-right .banner-ads img{
+  width: 200px;
+  margin: 5px 0;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+#menu-right img{
+  width: 300px;
+}
