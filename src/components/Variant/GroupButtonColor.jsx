@@ -1,27 +1,25 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import ButtonColor from './Button/ButtonColor'
+import { useLocation } from 'react-router-dom';
 
 const GroupButtonColor = ({ variant }) => {
-  
-  const [activeVariant, setActiveVariant] = useState(null);
+  const location = useLocation()
+  const search = new URLSearchParams(location.search);
+  const idParam = search.get('id')
 
-
-  console.log(activeVariant);
   return (
     <div className='colors-product row gap-1'>
       {
-        variant.colors.map((color) => {
-          return <ButtonColor 
-          key={color.id} 
-          active={activeVariant == color.id} 
-          data={{ ...color, price: variant.price }} 
-          onClick={() => setActiveVariant(color.id != activeVariant ? color.id : null)} />
+        variant?.colors?.map((color) => {
+          return <ButtonColor
+            key={color?.id}
+            active={idParam == color?.id}
+            data={{ ...color, price: variant?.price }}
+          />
         })
       }
     </div>
   )
-
-  
 }
 
 export default memo(GroupButtonColor)

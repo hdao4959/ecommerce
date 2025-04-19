@@ -1,20 +1,23 @@
-import React, { memo, useState } from 'react'
+import React, { memo } from 'react'
 import ButtonVariant from './Button/ButtonVariant'
+import { useLocation } from 'react-router-dom';
 
 const GroupButtonVariant = ({ variants }) => {
-  const [activeVariant, setActiveVariant] = useState(null)
+
+  const location = useLocation()
+  const search = new URLSearchParams(location.search);
+  const id = search.get('id')
+
+  const variantId = variants?.find(variant => variant?.colors?.some(color => color?.id == id)).id;
 
   return (
     <div className='variants-product row gap-1'>
       {
-        variants.map(variant => {
+        variants?.map(variant => {
           return <ButtonVariant
-            key={variant.id}
+            key={variant?.id}
             data={variant}
-            active={activeVariant == variant.id}
-            onClick={
-              () => setActiveVariant(activeVariant != variant.id ? variant.id : null)
-            }
+            active={variant?.id == variantId}
           />
         })
       }

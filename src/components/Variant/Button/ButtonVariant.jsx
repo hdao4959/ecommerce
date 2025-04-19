@@ -2,24 +2,34 @@ import React from 'react'
 import { formatPrice } from '../../../utils/formatPrice'
 import { useNavigate } from 'react-router-dom'
 import { mockData } from '../../../data/mock-data';
+import { useLocation } from 'react-router-dom'
 
-const ButtonVariant = ({ data, active, onClick }) => {
-  // const id = data
-  // console.log(id);
-  
-  // const  productLine = mockData.products.find(product => product.slug == slug && product.variants.some(variant => variant.colors.some(color => color.id == id)))
-  // console.log(productLine);
-  
+const ButtonVariant = ({ data, active }) => {
+  const location = useLocation()
+  const search = new URLSearchParams(location.search);
+  const idParam = search.get('id')
+
+  const productLine = mockData.products.find(product =>
+    product.variants.find(variant =>
+      variant.colors.some(color => color.id == idParam)))
+  // if(!productLine){
+  //   const navigate = useNavigate();
+  //   navigate('/')
+  // }
+  const idVariant = data.id
+
+  const variant = productLine.variants.find(variant => variant.id == idVariant)
+
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    if(onClick) onClick()
-    // navigate("/product/" + productLine.slug + "?id=" + data.id)
+    navigate("/products/" + productLine.slug + "?id=" + variant.colors[0].id)
   }
+
   return (
     <button
       onClick={handleNavigate}
-      className={` btn border ${active ? 'border-danger' : ''} col-3 col-md-4  col-lg-4 d-flex flex-column p-1`}>
+      className={` btn border ${active ? 'border-2 border-danger' : ''}   col-3 col-md-4  col-lg-4 d-flex flex-column p-1`}>
       <span className='fw-bold'>{data.name}</span>
       <span className='price-product-variant'>{formatPrice(data.price)}</span>
     </button>
