@@ -4,7 +4,7 @@ import Detail from "../../pages/main/Product/Detail";
 
 const productRoutes = [
       {
-        path: '/products/:id', element: <Detail />
+        path: '/products/:slug', element: <Detail />
       }
     ]
    

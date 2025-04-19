@@ -11,65 +11,13 @@ const Left = () => {
       <Card.Body id='links-category'>
 
         {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
+        <Link key={cate.id} href='' className='link-category'>
           <span >{cate.name}</span>
           <ArrowForwardIosIcon fontSize='inherit'/>
         </Link>
         )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
-        {mockData.categories.map((cate) => 
-        <Link href='' className='link-category'>
-          <span >{cate.name}</span>
-          <ArrowForwardIosIcon fontSize='inherit'/>
-        </Link>
-        )}
+
+       
        
 
       </Card.Body>

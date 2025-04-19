@@ -1,11 +1,21 @@
 import React from 'react'
-import SpecialProducts from '../../components/Product/SpecialProducts'
+import CardContainer from '../../components/Product/CardContainer'
 import "../../Style/Css/CardProduct.css"
+import { mockData } from '../../data/mock-data'
+
 const Home = () => {
   return (
     <>
-     <SpecialProducts/>
+    <section id='section-outstanding-products' className='my-3'>
+      <h2>Điện thoại nổi bật nhất</h2>
+      <CardContainer products={mockData.products} />
+    </section>
+    <section id='section-outstanding-products' className='my-3'>
+      <h2>Điện thoại nổi bật nhất</h2>
+      <CardContainer products={mockData.products} />
+    </section>
     </>
+
   )
 }
 
