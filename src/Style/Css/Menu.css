@@ -52,25 +52,26 @@
   /* display: block; */
 }
 
-/* #menu-right {
-  width: 30vw;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-} */
+#menu-right {
+  padding: 0;
+  
+}
 
-/* #menu-right .banner-ads {
-  width: 90%;
-  height: auto;
-} */
-
-/* #menu-right .banner-ads img {
+.banner-ads {
+  margin: 10px 0;
   width: 100%;
-  margin: 5px 0;
+    /* width: 90%;
+    height: auto;
+    overflow: hidden;
+    border-radius: 20px; */
+}
+
+#menu-right .banner-ads img {
+  width: 100%;
+  /* margin: 5px 0; */
   border-radius: 10px;
   border: 1px solid black;
-} */
+}
 
 /* #menu-right img {
   width: 300px;

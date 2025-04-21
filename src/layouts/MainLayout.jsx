@@ -5,16 +5,18 @@ import Menu from '../components/Menu'
 import "../Style/Css/index.css"
 import Footer from '../components/Footer'
 import BottomNavigator from '../components/BottomNavigator'
+import { mockData } from '../data/mock-data'
 const MainLayout = () => {
+  const categories = mockData.categories;
   return (
     <div id='body'>
       <Header />
       <article className='px-3 px-sm-4 px-md-5'>
 
-        <Menu />
+        <Menu categories={categories}/>
         <Outlet />
-        <Footer />
       </article>
+        <Footer />
       <BottomNavigator />
     </div>
   )

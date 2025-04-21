@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { useLocation, useNavigate, useNavigationType, useParams } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { mockData } from '../../../data/mock-data'
 import GroupButtonColor from '../../../components/Variant/GroupButtonColor'
 import GroupButtonVariant from '../../../components/Variant/GroupButtonVariant'
@@ -10,10 +10,8 @@ const Detail = () => {
   const navigate = useNavigate();
 
   const location = useLocation()
-
   const searchParams = new URLSearchParams(location.search)
   const idParam = searchParams.get('id')
-
   const { slug } = useParams()
 
   // Tìm dòng sản phẩm bằng slug
@@ -21,16 +19,14 @@ const Detail = () => {
 
   // Tìm dòng sản phẩm bằng biến thể 
   if (slug && idParam) {
-    productLine = mockData.products.find(product => product.slug == slug && product.variants.some(variant => variant.colors.some(color => color.id == idParam)))
+    productLine = mockData.products.find(product =>
+      product.slug == slug && product.variants.some(variant =>
+        variant.colors.some(color => color.id == idParam)))
   }
 
-  // if (!productLine) {
-  //   navigate('/')
-  // }
-  const variant = productLine?.variants.find(variant => variant?.colors.some(color => color?.id == idParam));
-  // if (!variant) {
-  //   navigate('/')
-  // }
+  const variant = productLine?.variants.find(variant =>
+    variant?.colors.some(color =>
+      color?.id == idParam));
   const product = variant?.colors.find(color => color?.id == idParam)
 
   useEffect(() => {
@@ -71,7 +67,6 @@ const Detail = () => {
         </div>
       </div>
 
-
       <div className='row row-cols-1 row-cols-md-2 '>
         <div className='col-md-8 card shadow py-2'>
           <h5>Thông tin sản phẩm</h5>
@@ -80,8 +75,7 @@ const Detail = () => {
         <div className='col-md-4'>
           <div className='card p-2 shadow'>
             <h5>Thông số kĩ thuật</h5>
-            <TableTechnical variant={variant}/>
-
+            <TableTechnical variant={variant} />
           </div>
         </div>
       </div>

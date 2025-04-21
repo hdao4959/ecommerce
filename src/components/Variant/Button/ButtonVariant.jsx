@@ -26,7 +26,7 @@ const ButtonVariant = ({ data, active }) => {
   return (
     <button 
       onClick={handleNavigate}
-      className={` btn border ${active ? 'border-2 border-danger' : ''}   col d-flex flex-column p-1`}>
+      className={`btn border ${active ? 'border-2 border-danger' : ''} col d-flex flex-column p-1`}>
       <span className='fw-bold'>{data.name}</span>
       <span className='price-product-variant'>{formatPrice(data.price)}</span>
     </button>
