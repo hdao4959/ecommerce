@@ -9,10 +9,11 @@ const MainLayout = () => {
   return (
     <div id='body'>
       <Header />
-      <article>
+      <article className='px-3 px-sm-4 px-md-5'>
+
         <Menu />
         <Outlet />
-      <Footer />
+        <Footer />
       </article>
       <BottomNavigator />
     </div>

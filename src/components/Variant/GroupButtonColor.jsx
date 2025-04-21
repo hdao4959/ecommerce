@@ -8,7 +8,7 @@ const GroupButtonColor = ({ variant }) => {
   const idParam = search.get('id')
 
   return (
-    <div className='colors-product row gap-1'>
+    <div className='colors-product row row-cols-3  gap-1'>
       {
         variant?.colors?.map((color) => {
           return <ButtonColor

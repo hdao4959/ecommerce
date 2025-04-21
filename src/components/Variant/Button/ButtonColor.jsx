@@ -14,7 +14,7 @@ const ButtonColor = ({ data, active }) => {
   return (
     <>
       <button onClick={handleNavigate}
-        className={`btn border ${active ? ' border-2 border-danger' : ''} col-3 col-md-4 d-flex justify-content-start p-1`}>
+        className={`btn border ${active ? ' border-2 border-danger' : ''} col d-flex justify-content-start p-1`}>
         <div className='align-content-center'>
           <img width={"40px"} src={data?.img_thumbnail} alt="" />
         </div>

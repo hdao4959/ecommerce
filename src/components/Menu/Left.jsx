@@ -6,9 +6,11 @@ import { Link } from 'react-router-dom';
 const Left = () => {
   return (
     
-    <Card id='menu-left'>
+    // <Card id='menu-left' >
+    <Card  className='d-none d-md-block col-md-4 col-lg-3'>
 
-      <Card.Body id='links-category'>
+      {/* <Card.Body id='links-category' > */}
+      <Card.Body >
 
         {mockData.categories.map((cate) => 
         <Link key={cate.id} href='' className='link-category'>

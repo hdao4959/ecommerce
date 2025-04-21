@@ -11,7 +11,7 @@ const GroupButtonVariant = ({ variants }) => {
   const variantId = variants?.find(variant => variant?.colors?.some(color => color?.id == id)).id;
 
   return (
-    <div className='variants-product row gap-1'>
+    <div className='variants-product row row-cols-3 gap-1'>
       {
         variants?.map(variant => {
           return <ButtonVariant

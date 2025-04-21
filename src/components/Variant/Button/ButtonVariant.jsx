@@ -12,10 +12,7 @@ const ButtonVariant = ({ data, active }) => {
   const productLine = mockData.products.find(product =>
     product.variants.find(variant =>
       variant.colors.some(color => color.id == idParam)))
-  // if(!productLine){
-  //   const navigate = useNavigate();
-  //   navigate('/')
-  // }
+
   const idVariant = data.id
 
   const variant = productLine.variants.find(variant => variant.id == idVariant)
@@ -27,9 +24,9 @@ const ButtonVariant = ({ data, active }) => {
   }
 
   return (
-    <button
+    <button 
       onClick={handleNavigate}
-      className={` btn border ${active ? 'border-2 border-danger' : ''}   col-3 col-md-4  col-lg-4 d-flex flex-column p-1`}>
+      className={` btn border ${active ? 'border-2 border-danger' : ''}   col d-flex flex-column p-1`}>
       <span className='fw-bold'>{data.name}</span>
       <span className='price-product-variant'>{formatPrice(data.price)}</span>
     </button>
