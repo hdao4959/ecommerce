@@ -11,8 +11,8 @@ const Left = ({categories}) => {
       {/* <Card.Body id='links-category' > */}
       <Card.Body className='p-0'>
 
-        {categories.map((cate) => 
-        <Link key={cate.id} href='' className='link-category'>
+        {categories.map((cate, index) => 
+        <Link key={index} href='' className='link-category'>
           <span >{cate.name}</span>
           <ArrowForwardIosIcon fontSize='inherit'/>
         </Link>

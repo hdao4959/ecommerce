@@ -11,16 +11,16 @@ const ButtonVariant = ({ data, active }) => {
 
   const productLine = mockData.products.find(product =>
     product.variants.find(variant =>
-      variant.colors.some(color => color.id == idParam)))
+      variant.colors.some(color => color._id == idParam)))
 
-  const idVariant = data.id
+  const idVariant = data._id
 
-  const variant = productLine.variants.find(variant => variant.id == idVariant)
+  const variant = productLine.variants.find(variant => variant._id == idVariant)
 
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/products/" + productLine.slug + "?id=" + variant.colors[0].id)
+    navigate("/products/" + productLine.slug + "?id=" + variant.colors[0]._id)
   }
 
   return (

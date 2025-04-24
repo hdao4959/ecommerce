@@ -4,11 +4,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
 const CardProduct = ({ product }) => {
+  
   return (
-    <Card key={product.id} className='card-product'>
+    <Card className='card-product'>
     {/* <Card key={product.id} className='col-5 col-md-3 col-lg-2'> */}
     {/* <Card key={product.id} className='card_product'> */}
-        <Link to={`/products/${product.slug}?id=${product.variants[0].colors[0].id}`} className='text-dark text-decoration-none'>
+        <Link to={`/products/${product.slug}?id=${product.variants[0].colors[0]._id}`} className='text-dark text-decoration-none'>
         <div className='img_product ' >
           <img src={product.variants[0].colors[0].img_thumbnail} alt="" />
           <p className='name_product'>{product.name}</p>

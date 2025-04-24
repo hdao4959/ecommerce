@@ -1,8 +1,9 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import Home from "../pages/main/Home";
-import MainRoutes from "./Main";
-// import MainRoutes from "./Main";
+import productRoutes from "./product.routes";
+import Home from "../pages/Home";
+import notFoundRoutes from "./notFound.routes";
+import cartRoutes from "./cart.routes";
 
 const routes = createBrowserRouter([
   {
@@ -12,7 +13,9 @@ const routes = createBrowserRouter([
       {
         index: true, element: <Home />
       },
-      ...MainRoutes
+      ...cartRoutes,
+      ...productRoutes,
+      ...notFoundRoutes
     ]
   }
 ])

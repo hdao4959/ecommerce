@@ -1,43 +1,45 @@
 export const mockData = {
   categories: [
     {
-      id: 1,
+      _id: 1,
       name: "Điên thoại",
       parent_id: null
     },
     {
-      id: 2,
+      _id: 2,
       name: "Samsung",
       parent_id: 1
     },
     {
-      id: 3,
+      _id: 3,
       name: "Máy tính"
     },
   ],
   products: [
     {
-      id: 1,
+      _id: 1,
       name: "Samsung Galaxy S24 Ultra",
       slug: "samsung-galaxy-s24",
       category_id: 2,
       variants: [
         {
-          id: 1,
+          _id: 1,
           product_id: 1,
           name: "12GB 1TB",
           colors: [
             {
-              id: 4423424,
+              _id: 4423424,
               variant_id: 1,
               name: 'Xám',
+              price: 44490000,
               img_thumbnail: "https://cdn2.cellphones.com.vn/358x/media/catalog/product/g/a/galaxy-s24-ultra-xam_1_5.png",
               stock: 100
             },
             {
-              id: 4423422,
+              _id: 4423422,
               variant_id: 1,
               name: 'Đen',
+              price: 44450000,
               img_thumbnail: "https://cdn2.cellphones.com.vn/358x/media/catalog/product/g/a/galaxy-s24-ultra-den-1_1_5.png",
               stock: 100
             },
@@ -55,14 +57,14 @@ export const mockData = {
           price: 44490000,
           product_technical: [
             {
-              id: 1,
+              _id: 1,
               variant_id: 1,
               name: "Kích thước màn hình",
               value: '6.8inches',
               type: 'screen'
             },
             {
-              id: 3,
+              _id: 3,
               variant_id: 1,
               name: "Công nghệ màn hình",
               value: 'Dynamic AMOLED 2X',
@@ -71,21 +73,23 @@ export const mockData = {
           ]
         },
         {
-          id: 2,
+          _id: 2,
           name: "12GB 512GB",
           product_id: 1,
           colors: [
             {
-              id: 25252,
+              _id: 25252,
               variant_id: 2,
               name: 'Vàng',
+              price: 25900000,
               img_thumbnail: "https://cdn2.cellphones.com.vn/358x/media/catalog/product/g/a/galaxy-s24-ultra-vang_1_3.png",
               stock: 100
             },
             {
-              id: 144134,
+              _id: 144134,
               variant_id: 2,
               name: 'Tím',
+              price: 25500000,
               img_thumbnail: "https://cdn2.cellphones.com.vn/358x/media/catalog/product/g/a/galaxy-s24-ultra-tim_1_3.png",
               stock: 100
             },
@@ -103,7 +107,7 @@ export const mockData = {
           thoại này xem có nên mua không ngay nhé!`,
           product_technical: [
             {
-              id: 2,
+              _id: 2,
               variant_id: 2,
               name: "Kích thước màn hình",
               value: '6.8inches',
@@ -113,6 +117,44 @@ export const mockData = {
         }
       ]
 
+    }
+  ],
+
+  users: [
+    {
+      _id: 1, 
+      name: "Đào Xuân Hải",
+      email: 'hdao4959@gmail.com',
+      password: 'password',
+      phone_number: "0369037600"
+    }
+  ],
+  orders: [
+    {
+      _id: 1, 
+      user_id: 1,
+      name: 'Đào Xuân Hải',
+      email: 'hdao4959@gmail.com',
+      phone_number: "0369037600",
+      city: 'Hà Nội',
+      district: 'Nam Từ Liêm',
+      commune: 'abc',
+      street_name_or_number_home: 'abc',
+      note: "",
+      order_products: [
+        {
+          productLine: 'Samsung Galaxy S24 Ultra',
+          slug_productLine: "samsung-galaxy-s24",
+          variant: '12GB 1TB',
+          product_id: 4423424,
+          color: 'Xám',
+          img_thumbnail: "https://cdn2.cellphones.com.vn/358x/media/catalog/product/g/a/galaxy-s24-ultra-xam_1_5.png",
+          link: "/" + "samsung-galaxy-s24" + "?id=" + 4423424,
+          price: 44490000,
+          quantity: 2,
+
+        }
+      ]
     }
   ]
 }

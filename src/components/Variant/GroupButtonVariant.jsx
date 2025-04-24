@@ -8,16 +8,16 @@ const GroupButtonVariant = ({ variants }) => {
   const search = new URLSearchParams(location.search);
   const id = search.get('id')
 
-  const variantId = variants?.find(variant => variant?.colors?.some(color => color?.id == id)).id;
+  const variantId = variants?.find(variant => variant?.colors?.some(color => color?._id == id))._id;
 
   return (
     <div className='variants-product row row-cols-3 gap-1'>
       {
-        variants?.map(variant => {
+        variants?.map((variant, index) => {
           return <ButtonVariant
-            key={variant?.id}
+            key={index}
             data={variant}
-            active={variant?.id == variantId}
+            active={variant?._id == variantId}
           />
         })
       }

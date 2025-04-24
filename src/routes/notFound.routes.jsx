@@ -1,5 +1,5 @@
 import React from 'react'
-import Abort404 from '../../pages/NotFound/Abort404'
+import Abort404 from '../pages/NotFound/Abort404'
 
 const notFoundRoutes = [
   {

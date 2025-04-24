@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom';
 import { mockData } from '../../../data/mock-data';
 
 const ButtonColor = ({ data, active }) => {
-  const productLine = mockData?.products?.find(product => product?.variants?.some(variant => variant.colors.some(color => color.id == data.id)))
+  const productLine = mockData?.products?.find(product => product?.variants?.some(variant => variant.colors.some(color => color._id == data._id)))
 
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/products/" + productLine?.slug + "?id=" + data?.id)
+    navigate("/products/" + productLine?.slug + "?id=" + data?._id)
   }
   return (
     <>
       <button onClick={handleNavigate}
-        className={`btn border ${active ? ' border-2 border-danger' : ''} col d-flex justify-content-start p-1`}>
+        className={`btn border ${active ? ' border-2 border-danger' : ''} col d-flex justify-content-center p-1`}>
         <div className='align-content-center'>
-          <img width={"40px"} src={data?.img_thumbnail} alt="" />
+          <img style={{width: '40px'}} src={data?.img_thumbnail} alt="" />
         </div>
         <div className='d-flex flex-column mx-1'>
           <span className='fw-bold'>{data?.name}</span>

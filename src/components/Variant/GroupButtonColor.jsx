@@ -8,13 +8,13 @@ const GroupButtonColor = ({ variant }) => {
   const idParam = search.get('id')
 
   return (
-    <div className='colors-product row row-cols-3  gap-1'>
+    <div className='colors-product row row-cols-3 gap-1'>
       {
-        variant?.colors?.map((color) => {
+        variant?.colors?.map((color, index) => {
           return <ButtonColor
-            key={color?.id}
-            active={idParam == color?.id}
-            data={{ ...color, price: variant?.price }}
+            key={index}
+            active={idParam == color?._id}
+            data={{ ...color, price: color?.price ?? variant?.price }}
           />
         })
       }

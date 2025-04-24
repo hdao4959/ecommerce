@@ -2,8 +2,9 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 
-  color-scheme: light dark;
+  /* color-scheme: light dark; */
   background-color: #242424;
+  /* background-color: #6c757d !important; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -14,9 +15,8 @@
 
 
 article {
+  min-height: 90vh;
   padding-top: 64px;
-  margin: 0 auto;
-
 }
 
 #bottom-navigator {
@@ -53,17 +53,10 @@ article {
 
 @media screen and (max-width: 992px) {
 
-  /* article {
-    padding: 0px 20px;
-    margin: 0 auto;
-  } */
 }
 
 @media screen and (max-width: 768px) {
-  /* article {
-    padding: 0 5px;
-    margin: 0 auto;
-  } */
+
 
   #body {
     padding-bottom: 50px;
