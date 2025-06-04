@@ -1,5 +1,6 @@
 export const formatPrice = (price) => {
-  return price?.toLocaleString('vi', {
+  
+  return Number(price)?.toLocaleString('vi', {
     style: 'currency',
     currency: "VND"
   });

@@ -3,17 +3,18 @@ import { Card } from 'react-bootstrap'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils/formatPrice';
 const CardProduct = ({ product }) => {
-  
+  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL
+    
   return (
-    <Card className='card-product'>
+       <Card className='card-product'>
     {/* <Card key={product.id} className='col-5 col-md-3 col-lg-2'> */}
-    {/* <Card key={product.id} className='card_product'> */}
         <Link to={`/products/${product.slug}?id=${product.variants[0].colors[0]._id}`} className='text-dark text-decoration-none'>
         <div className='img_product ' >
-          <img src={product.variants[0].colors[0].img_thumbnail} alt="" />
-          <p className='name_product'>{product.name}</p>
-          <p className='price_product'>{product.variants[0].price}</p>
+          <img src={`${serverBaseUrl}${product.variants[0].colors[0].img}`} alt="" />
+          <p className='name_product'>{product?.name} {product?.variants[0]?.name}</p>
+          <p className='text-danger fw-bold price_product'>{formatPrice(product?.variants[0]?.colors[0]?.price)}</p>
         </div>
         <div className='footer-product'>
           <div className='stars'>

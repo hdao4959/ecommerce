@@ -2,7 +2,8 @@ import React, { memo } from 'react'
 import ButtonColor from './Button/ButtonColor'
 import { useLocation } from 'react-router-dom';
 
-const GroupButtonColor = ({ variant }) => {
+const GroupButtonColor = ({ variant, colorMap, productLine }) => {
+  
   const location = useLocation()
   const search = new URLSearchParams(location.search);
   const idParam = search.get('id')
@@ -14,6 +15,8 @@ const GroupButtonColor = ({ variant }) => {
           return <ButtonColor
             key={index}
             active={idParam == color?._id}
+            colorMap={colorMap}
+            productLine={productLine}
             data={{ ...color, price: color?.price ?? variant?.price }}
           />
         })
