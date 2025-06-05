@@ -6,7 +6,6 @@ import BottomNavigator from '../components/BottomNavigator'
 const MainLayout = () => {
   return (
     <>
-
     
       <div id='body'>
         <Header />
