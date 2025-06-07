@@ -4,10 +4,11 @@ import productRoutes from "./product.routes";
 import Home from "../pages/Home";
 import notFoundRoutes from "./notFound.routes";
 import cartRoutes from "./cart.routes";
+import BlankLayout from "../layouts/BlankLayout";
+import Login from "../pages/Auth/Login";
 
 const routes = createBrowserRouter([
   {
-    path: "/",
     element: <MainLayout />,
     children: [
       {
@@ -16,6 +17,13 @@ const routes = createBrowserRouter([
       ...cartRoutes,
       ...productRoutes,
       ...notFoundRoutes
+    ]
+  }, {
+    element: <BlankLayout/>,
+    children: [
+      {
+        path: '/login', element: <Login/>
+      }
     ]
   }
 ])

@@ -3,9 +3,9 @@ import { formatPrice } from '../../../utils/formatPrice'
 import { useNavigate } from 'react-router-dom';
 import { mockData } from '../../../data/mock-data';
 import axiosInstance from '../../../utils/axios';
-
+import env from '../../../config/env';
 const ButtonColor = ({ data, colorMap, active, productLine }) => {
-  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL
+  const serverBaseUrl = env.VITE_SERVER_BASE_URL
  
 
   const navigate = useNavigate();

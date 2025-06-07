@@ -9,7 +9,6 @@ const GroupButtonVariant = ({ variants = [], productLine = {} }) => {
   const id = search.get('id')
   let variantId
   const foundVariant = Array.isArray(variants) && variants?.find(variant => Array.isArray(variant?.colors) && variant?.colors?.some(color => color?._id == id));
-  console.log(foundVariant);
   
   if(foundVariant){
     variantId = foundVariant._id || null

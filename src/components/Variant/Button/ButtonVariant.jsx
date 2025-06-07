@@ -5,7 +5,6 @@ import { mockData } from '../../../data/mock-data';
 import { useLocation } from 'react-router-dom'
 
 const ButtonVariant = ({ data, active, productLine = {} }) => {
-  console.log(data);
   
   const location = useLocation()
   const search = new URLSearchParams(location.search);

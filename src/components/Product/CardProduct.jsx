@@ -4,8 +4,9 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils/formatPrice';
+import env from '../../config/env.js'
 const CardProduct = ({ product }) => {
-  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL
+  const serverBaseUrl = env.VITE_SERVER_BASE_URL
     
   return (
        <Card className='card-product'>

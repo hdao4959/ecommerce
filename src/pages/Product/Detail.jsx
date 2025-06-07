@@ -7,9 +7,9 @@ import { formatPrice } from '../../utils/formatPrice'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TableTechnical from '../../components/Product/TableTechnical'
 import axiosInstance from '../../utils/axios'
-
+import env from '../../config/env'
 const Detail = () => {
-  const serverBaseUrl = import.meta.env.VITE_SERVER_BASE_URL;
+  const serverBaseUrl = env.VITE_SERVER_BASE_URL;
   const [productLine, setProductLine] = useState({})
   const [variants, setVariants] = useState([])
   
@@ -46,18 +46,28 @@ const Detail = () => {
   }
 
 const addToCard = () => {
+  let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
+  const exist = currentCart.find(item => item._id == idParam)
+  if(exist){
+    currentCart = currentCart.map(item => {
+      if(item._id == idParam){
+        return {
+          ...item, quantity: item.quantity +1
+        }
+      }else{
+        return item
+      }
+    })
+  }else{
+    currentCart.push({
+      _id: idParam, 
+      quantity: 1
+    })
+  }
 
-  // const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-  // if(!cart){
-  //   const product = {
-  //     _idVariantColor: idParam,
-  //     quantity: 1
-  //   }
-  //   localStorage.setItem('cart', [])
-  // }
-  // console.log(localStorage.getItem('cart'));
+  localStorage.setItem('cart', JSON.stringify(currentCart))
+  alert("Đã thêm sản phẩm thành công vào giỏ hàng")
   
-  console.log(idParam);
 }
   // useEffect(() => {
   //   if (!productLine || !variant || !variantColor) {
