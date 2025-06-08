@@ -8,17 +8,23 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TableTechnical from '../../components/Product/TableTechnical'
 import axiosInstance from '../../utils/axios'
 import env from '../../config/env'
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/slices/cartSlice'
+import { setCheckoutItems } from '../../redux/slices/checkoutSlice'
 const Detail = () => {
+    const dispath = useDispatch();
+
   const serverBaseUrl = env.VITE_SERVER_BASE_URL;
   const [productLine, setProductLine] = useState({})
   const [variants, setVariants] = useState([])
-  
+
   const [colors, setColors] = useState([]);
-    
-   const colorMap = colors?.reduce((acc, color) => {
+
+  const colorMap = colors?.reduce((acc, color) => {
     acc[color._id.toString()] = color.name;
     return acc
   }, {})
+
   const navigate = useNavigate();
 
   const location = useLocation()
@@ -28,7 +34,7 @@ const Detail = () => {
   useEffect(() => {
     (async () => {
       const { data } = await axiosInstance.get('/products/' + slug + '?id=' + idParam);
-      
+
       setProductLine(data.data.productLine)
       setVariants(data.data.variants)
       setColors(data.data.colors)
@@ -45,30 +51,43 @@ const Detail = () => {
     variantColor = variant?.colors.find(color => color?._id == idParam)
   }
 
-const addToCard = () => {
-  let currentCart = JSON.parse(localStorage.getItem('cart')) || [];
-  const exist = currentCart.find(item => item._id == idParam)
-  if(exist){
-    currentCart = currentCart.map(item => {
-      if(item._id == idParam){
-        return {
-          ...item, quantity: item.quantity +1
-        }
-      }else{
-        return item
-      }
-    })
-  }else{
-    currentCart.push({
+  const handleBuyNow = () => {
+    dispath(setCheckoutItems([{
       _id: idParam, 
       quantity: 1
-    })
+    }]))
+    navigate('/checkout')
   }
 
-  localStorage.setItem('cart', JSON.stringify(currentCart))
-  alert("Đã thêm sản phẩm thành công vào giỏ hàng")
-  
-}
+  const handleAddToCart = () => {
+    dispath(addToCart(
+      {
+        _id: idParam,
+        quantity: 1
+      }
+    ))
+    // let currentCart = JSON.parse(cartService.getCart()) || [];
+    // const exist = currentCart.find(item => item._id == idParam)
+    // if(exist){
+    //   currentCart = currentCart.map(item => {
+    //     if(item._id == idParam){
+    //       return {
+    //         ...item, quantity: item.quantity +1
+    //       }
+    //     }else{
+    //       return item
+    //     }
+    //   })
+    // }else{
+    //   currentCart.push({
+    //     _id: idParam, 
+    //     quantity: 1
+    //   })
+    // }
+    // cartService.saveCart(currentCart)
+    alert("Đã thêm sản phẩm thành công vào giỏ hàng")
+
+  }
   // useEffect(() => {
   //   if (!productLine || !variant || !variantColor) {
   //     navigate('/404')
@@ -100,8 +119,8 @@ const addToCard = () => {
           </div>
           <h2 className='text-danger'>Giá: {formatPrice(variantColor?.price)}</h2>
           <div className='row gap-1 row-cols-2'>
-            <button className='btn btn-danger fw-bold btn-xxl col-6 col-lg-7 fs-4'>Mua ngay</button>
-            <button onClick={() => addToCard()} className='btn border-danger border-2 text-danger fw-bold col-5 col-lg-4 d-flex  align-items-center'><AddShoppingCartIcon />Thêm vào giỏ</button>
+            <button onClick={() => handleBuyNow()} className='btn btn-danger fw-bold btn-xxl col-6 col-lg-7 fs-4'>Mua ngay</button>
+            <button onClick={() => handleAddToCart()} className='btn border-danger border-2 text-danger fw-bold col-5 col-lg-4 d-flex  align-items-center'><AddShoppingCartIcon />Thêm vào giỏ</button>
           </div>
         </div>
       </div>

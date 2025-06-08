@@ -1,10 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import "../../Style/Css/Header.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import authService from '../../services/authService';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/slices/accountSlice';
+
+
 const Header = ({ account = {} }) => {
+  const navigate = useNavigate();
+  const dispath = useDispatch();
+  const cartItems = useSelector(state => state.cart.items);
+  const quantityItem = cartItems.reduce((total, item) => {
+    total = total + item.quantity
+    return total
+  }, 0)
+  
   const [openMenuAccount, setOpenMenuAccount] = useState(false);
   const menuRef = useRef();
 
@@ -13,12 +25,8 @@ const Header = ({ account = {} }) => {
   };
 
   const handleLogout = () => {
-    authService.logout();
-  }
-
-  const countItemCart = () => {
-    const cart = JSON.parse(localStorage.getItem('cart')).length
-    return cart
+    dispath(logout());
+    navigate('/login')
   }
 
   // Đóng dropdown khi click ra ngoài
@@ -46,7 +54,7 @@ const Header = ({ account = {} }) => {
           <Link to="/cart" className='position-relative btn button-header bg-light'>
             <AddShoppingCartIcon />
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
-              {countItemCart()}
+              {quantityItem}
               <span className="visually-hidden">unread messages</span>
             </span>
           </Link>
