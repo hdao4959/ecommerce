@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { mockData } from '../../data/mock-data'
 import GroupButtonColor from '../../components/Variant/GroupButtonColor'
 import GroupButtonVariant from '../../components/Variant/GroupButtonVariant'
 import { formatPrice } from '../../utils/formatPrice'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TableTechnical from '../../components/Product/TableTechnical'
-import axiosInstance from '../../utils/axios'
 import env from '../../config/env'
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/slices/cartSlice'
 import { setCheckoutItems } from '../../redux/slices/checkoutSlice'
+import productService from '../../services/productService'
 const Detail = () => {
-    const dispath = useDispatch();
-
+  const dispath = useDispatch();
   const serverBaseUrl = env.VITE_SERVER_BASE_URL;
+  
   const [productLine, setProductLine] = useState({})
   const [variants, setVariants] = useState([])
-
   const [colors, setColors] = useState([]);
 
   const colorMap = colors?.reduce((acc, color) => {
@@ -33,7 +31,7 @@ const Detail = () => {
   const { slug } = useParams()
   useEffect(() => {
     (async () => {
-      const { data } = await axiosInstance.get('/products/' + slug + '?id=' + idParam);
+      const data = await productService.getProductDetail(slug, idParam);
 
       setProductLine(data.data.productLine)
       setVariants(data.data.variants)
@@ -53,7 +51,7 @@ const Detail = () => {
 
   const handleBuyNow = () => {
     dispath(setCheckoutItems([{
-      _id: idParam, 
+      _id: idParam,
       quantity: 1
     }]))
     navigate('/checkout')
@@ -66,25 +64,7 @@ const Detail = () => {
         quantity: 1
       }
     ))
-    // let currentCart = JSON.parse(cartService.getCart()) || [];
-    // const exist = currentCart.find(item => item._id == idParam)
-    // if(exist){
-    //   currentCart = currentCart.map(item => {
-    //     if(item._id == idParam){
-    //       return {
-    //         ...item, quantity: item.quantity +1
-    //       }
-    //     }else{
-    //       return item
-    //     }
-    //   })
-    // }else{
-    //   currentCart.push({
-    //     _id: idParam, 
-    //     quantity: 1
-    //   })
-    // }
-    // cartService.saveCart(currentCart)
+
     alert("Đã thêm sản phẩm thành công vào giỏ hàng")
 
   }

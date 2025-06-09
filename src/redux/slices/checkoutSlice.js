@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-
+import checkoutService from "../../services/checkoutService";
 const checkoutSlice = createSlice({
   name: 'checkout',
-  initialState: {
-    items: [],
+  initialState:
+  checkoutService.loadCheckoutState() || 
+   {
+    items:   [],
     fromCart: false,
   },
   reducers: {
@@ -21,6 +23,8 @@ const checkoutSlice = createSlice({
     }
   }
 })
+
+
 
 export const {setCheckoutItems, checkoutFromCart, clearCheckout} = checkoutSlice.actions
 

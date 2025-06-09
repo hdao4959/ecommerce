@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import cartService from "../../services/cartService"
 
 const initialState = {
-  items: JSON.parse(cartService.getCart())
+  items: JSON.parse(cartService.getCart()) || []
 }
 
 const cartSlice = createSlice({

@@ -4,7 +4,7 @@ import axiosInstance from '../../utils/axios'
 import env from '../../config/env.js'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { login } from '../../redux/slices/accountSlice.js'
+import { loginWithGoogle } from '../../redux/slices/accountSlice.js'
 import authService from '../../services/authService.js'
 const Login = () => {
   const dispath = useDispatch();
@@ -14,7 +14,7 @@ const Login = () => {
     const credential = response.credential
     try {
       const account = await authService.loginWithGoogle(credential)
-      dispath(login(account))
+      dispath(loginWithGoogle(account))
       navigate('/')
     } catch (error) {
       alert(error)

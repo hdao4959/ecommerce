@@ -6,7 +6,7 @@ const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
-    login: (state, action) => {
+    loginWithGoogle: (state, action) => {
       localStorage.setItem('account', JSON.stringify(action.payload))
       return action.payload
     },
@@ -17,5 +17,5 @@ const accountSlice = createSlice({
   }
 })
 
-export const {login, logout} = accountSlice.actions
+export const {loginWithGoogle, logout} = accountSlice.actions
 export default accountSlice.reducer

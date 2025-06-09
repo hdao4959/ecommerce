@@ -1,6 +1,6 @@
 
 const getCart = () => {
-  const cart = localStorage?.getItem('cart') || [];
+  const cart = localStorage?.getItem('cart') || undefined;
   return cart
 }
 

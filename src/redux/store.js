@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import cartReducer from './slices/cartSlice.js'
 import checkoutReducer from "./slices/checkoutSlice.js";
 import accountReducer from './slices/accountSlice.js'
+import checkoutService from "../services/checkoutService.js";
 export const store = configureStore({
   reducer:{
     account: accountReducer,
@@ -10,3 +11,6 @@ export const store = configureStore({
   }
 })
 
+store.subscribe(() => {
+  checkoutService.saveCheckoutState(store.getState().checkout)
+})
