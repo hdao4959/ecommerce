@@ -4,37 +4,29 @@ import axiosInstance from '../utils/axios';
 import { formatPrice } from '../utils/formatPrice.js'
 import authService from '../services/authService.js';
 import addressService from '../services/addressService.js';
+import checkoutService from '../services/checkoutService.js';
 const Checkout = () => {
   const [provinces, setProvinces] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [wards, setWards] = useState([]);
-
+  const { sub: googleId } = JSON.parse(authService.getAccount());
+  const { items } = useSelector(state => state.checkout);
+  const [listItem, setListItem] = useState([]);
   const [form, setForm] = useState({
     name: '',
-    phone: '',
+    phoneNumber: '',
     email: '',
     province: '',
     district: '',
-    ward: ''
+    ward: '',
+    note: '',
+    items: items,
   });
-
-
-  const { sub: googleId } = JSON.parse(authService.getAccount());
-
-
-
-  const { items, fromCart } = useSelector(state => state.checkout);
-
-  const [listItem, setListItem] = useState([]);
-
-
 
   const itemMap = items.reduce((acc, item) => {
     acc[item._id.toString()] = item
     return acc
   }, {})
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,9 +48,6 @@ const Checkout = () => {
       }
     }
 
-    if (name == 'province') {
-
-    }
   };
 
   const loadDistricts = async (idProvince) => {
@@ -70,23 +59,36 @@ const Checkout = () => {
     setWards(responseWards.data)
   }
 
-  const handleSubmit = (e) => {
+
+  const totalPrice = listItem.reduce((sum, item) => {
+    sum = itemMap[item._id].quantity * item.price
+    return sum;
+  }, 0)
+
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!form.name || !form.phone || !form.province || !form.district || !form.ward) {
+    if (!form.name || !form.phoneNumber || !form.province || !form.district || !form.ward) {
       alert("Vui lòng nhập đầy đủ thông tin bắt buộc!");
       return;
     }
+    const responseHandleCheckout = await checkoutService.handleCheckout({
+      ...form,
+      amount: totalPrice
+    })
+    if (responseHandleCheckout && responseHandleCheckout.data.vnpUrl) {
+      window.location.href = responseHandleCheckout.data.vnpUrl;
+    }
 
-    alert('Đặt hàng thành công!');
   };
+
+
+
 
   useEffect(() => {
     (async () => {
-
       try {
-        const responseCheckout = await axiosInstance.post('/checkout', {
-          cart: JSON.stringify(items)
-        })
+        const responseCheckout = await checkoutService.previewCheckout(items)
         setListItem(responseCheckout.data.data.items)
 
         const responseProvinces = await addressService.getProvinces();
@@ -96,22 +98,20 @@ const Checkout = () => {
         setForm(
           {
             name: account.name || '',
-            phone: account.phoneNumber || '',
+            phoneNumber: account.phoneNumber || '',
             email: account.email || '',
-            address: account.address || ''
+            province: '',
+            district: '',
+            ward: '',
+            note: '',
+            items: items
           }
         )
       } catch (error) {
         console.log(error);
       }
     })()
-
   }, [])
-
-  const total = listItem.reduce((sum, item) => {
-    sum = itemMap[item._id].quantity * item.price
-    return sum;
-  }, 0)
 
 
 
@@ -121,40 +121,20 @@ const Checkout = () => {
       <form className='mb-5'>
         <div className='mb-3'>
           <label className='form-label'>Họ và tên *</label>
-          <input
-            type='text'
-            className='form-control'
-            name='name'
-            placeholder='Họ và tên'
-            value={form.name}
-            onChange={handleChange}
-            required
-          />
+          <input type='text' className='form-control' name='name' placeholder='Họ và tên'
+            value={form.name} onChange={handleChange} required />
         </div>
 
         <div className='mb-3'>
           <label className='form-label'>Số điện thoại *</label>
-          <input
-            type='text'
-            className='form-control'
-            name='phone'
-            placeholder='Số điện thoại'
-            value={form.phone}
-            onChange={handleChange}
-            required
-          />
+          <input type='text' className='form-control' name='phoneNumber' placeholder='Số điện thoại'
+            value={form.phoneNumber} onChange={handleChange} required />
         </div>
 
         <div className='mb-3'>
           <label className='form-label'>Email</label>
-          <input
-            type='email'
-            className='form-control'
-            name='email'
-            placeholder='Email'
-            value={form.email}
-            onChange={handleChange}
-          />
+          <input type='email' className='form-control' name='email' placeholder='Email'
+            value={form.email} onChange={handleChange} />
         </div>
 
 
@@ -185,19 +165,16 @@ const Checkout = () => {
             <label className='form-label'>Phường/Thị xã *</label>
             <select className='form-control' name="ward" id="" value={form.ward} onChange={handleChange}>
               <option value="">--Chọn Phường/Thị xã</option>
-              {
-                wards && wards.length > 0 && wards.map(ward => (
-                  <option key={ward._id} value={ward.code}>{ward.name}</option>
-                ))
-              }
+              {wards && wards.length > 0 && wards.map(ward => (
+                <option key={ward._id} value={ward.code}>{ward.name}</option>
+              ))}
             </select>
           </div>
         </div>
         <div className='mb-3'>
           <label className='form-label'>Ghi chú</label>
-          <textarea style={{ width: "100%", height: "100px" }} className='form-control' name="" id=""></textarea>
+          <textarea style={{ width: "100%", height: "100px" }} className='form-control' name="note" onChange={handleChange} id=""></textarea>
         </div>
-
 
 
       </form>
@@ -213,10 +190,8 @@ const Checkout = () => {
           </li>
         ))}
       </ul>
-      <h5>Tổng tiền: {formatPrice(total)}</h5>
-      <button onClick={handleSubmit} type='submit' className='btn btn-primary'>
-        Đặt hàng
-      </button>
+      <h5>Tổng tiền: {formatPrice(totalPrice)}</h5>
+      <button onClick={handleSubmit} type='submit' className='btn btn-primary'> Đặt hàng </button>
     </div>
   );
 };
