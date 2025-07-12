@@ -22,7 +22,7 @@ const handleCheckout = async (data) => {
     data = {
       ...data, 
       bankCode: '',
-      orderDescription: 'Thanh toán đơn hàng',
+      orderDescription: '',
       orderType: 'other',
       language: ''
     }

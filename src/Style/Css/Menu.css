@@ -30,13 +30,17 @@
 }
 
 .link-category span {
-
   padding: 0 5px;
-
 }
 
 .link-category:hover {
   background-color: rgb(233, 233, 233);
+  color: inherit;
+  font-weight: bold;
+}
+
+.link-category.active {
+  background-color: rgb(192, 190, 190);
   color: inherit;
   font-weight: bold;
 }

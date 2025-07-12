@@ -1,39 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import CardContainer from '../components/Product/CardContainer'
 import "../Style/Css/CardProduct.css"
-import { mockData } from '../data/mock-data'
 import LoadMore from '../components/Button/LoadMore'
 import Menu from '../components/Menu'
-import axiosInstance from '../utils/axios'
-const Home = () => {
-  const categories = mockData.categories;
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    (async () => {
-      try {
-        const {data} = await axiosInstance.get('/');
-        setProducts(data.data.products)
-      } catch (error) {
-        console.log(error);
-      }
+import productService from '../services/productService'
+import useApi from '../hooks/useApi'
 
-    })()
-  }, [])
+const Home = () => {
+  const [responseProducts, setResponseProducts] = useState([]);
+  const {data:dataListProduct} = useApi(productService.getListProductForHomePage, true);
+
+  useEffect(() => {
+     if(dataListProduct){
+      setResponseProducts(Object.values(dataListProduct))
+     }
+  }, [dataListProduct])
+  
   return (
     <>
-      <Menu categories={categories} />
-
-      <section id='section-outstanding-products' className='my-3'>
-        <h2>Điện thoại nổi bật nhất</h2>
-        <CardContainer products={products} />
-        <LoadMore quantity={20} />
+      <Menu />
+    {
+      responseProducts.length > 0 && responseProducts.map((collection, index) => (
+      <section key={index}  id='section-outstanding-products' className='my-3'>
+        <h2>{collection.category}</h2>
+        <CardContainer products={collection.products} />
+        <LoadMore />
       </section>
-      <section id='section-outstanding-products' className='my-3'>
-        <h2>Điện thoại nổi bật nhất</h2>
-        <CardContainer products={products} />
-        <LoadMore quantity={20} />
-
-      </section>
+      ))
+    }
     </>
 
   )

@@ -5,6 +5,9 @@ const getProductDetail = async (slugProductLine, idVariantColor) => {
       return data
 }
 
+const getListProductForHomePage = () =>{
+  return axiosInstance.get('/');
+}
 export default {
-  getProductDetail
+  getListProductForHomePage,getProductDetail
 }

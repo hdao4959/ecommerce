@@ -7,15 +7,13 @@ import { formatPrice } from '../../utils/formatPrice';
 import env from '../../config/env.js'
 const CardProduct = ({ product }) => {
   const serverBaseUrl = env.VITE_SERVER_BASE_URL
-    
   return (
        <Card className='card-product'>
-    {/* <Card key={product.id} className='col-5 col-md-3 col-lg-2'> */}
-        <Link to={`/products/${product.slug}?id=${product.variants[0].colors[0]._id}`} className='text-dark text-decoration-none'>
+        <Link to={`/products/${product.slug}?id=${product.variant.color._id}`} className='text-dark text-decoration-none'>
         <div className='img_product ' >
-          <img src={`${serverBaseUrl}${product.variants[0].colors[0].img}`} alt="" />
-          <p className='name_product'>{product?.name} {product?.variants[0]?.name}</p>
-          <p className='text-danger fw-bold price_product'>{formatPrice(product?.variants[0]?.colors[0]?.price)}</p>
+          <img src={`${serverBaseUrl}${product.variant.color.img}`} alt="" />
+          <p className='name_product'>{product?.name} {product?.variant?.name}</p>
+          <p className='text-danger fw-bold price_product'>{formatPrice(product?.variant?.color?.price)}</p>
         </div>
         <div className='footer-product'>
           <div className='stars'>
@@ -24,7 +22,6 @@ const CardProduct = ({ product }) => {
             <StarIcon fontSize='small' />
             <StarIcon fontSize='small' />
             <StarIcon fontSize='small' />
-
           </div>
           <div className='div-favorite'>
             <span>Yêu thích</span>

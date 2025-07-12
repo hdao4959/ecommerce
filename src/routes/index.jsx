@@ -7,6 +7,7 @@ import cartRoutes from "./cart.routes";
 import BlankLayout from "../layouts/BlankLayout";
 import Login from "../pages/Auth/Login";
 import orderRoutes from "./order.routes";
+import categoryRoutes from "./category.routes";
 
 const routes = createBrowserRouter([
   {
@@ -18,7 +19,8 @@ const routes = createBrowserRouter([
       ...cartRoutes,
       ...productRoutes,
       ...notFoundRoutes,
-      ...orderRoutes
+      ...orderRoutes,
+      ...categoryRoutes
     ]
   }, {
     element: <BlankLayout/>,
