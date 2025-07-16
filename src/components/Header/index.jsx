@@ -7,7 +7,6 @@ import authService from '../../services/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/accountSlice';
 
-
 const Header = ({ account = {} }) => {
   const navigate = useNavigate();
   const dispath = useDispatch();

@@ -16,13 +16,13 @@ const ButtonColor = ({ data, colorMap, active, productLine }) => {
   return (
     <>
       <button onClick={handleNavigate} style={{height: 'auto',minHeight: '60px'}}
-        className={`btn border ${active ? ' border-2 border-danger' : ''} col d-flex justify-content-center p-1`}>
+        className={`btn border border-2 ${active ? ' border-danger' : ''} col d-flex justify-content-center p-1`}>
         <div className='align-content-center'>
           <img className='img-fluid' style={{width: '40px'}} src={`${serverBaseUrl}${data?.img}`} alt="" />
         </div>
         <div className='d-flex flex-column mx-1' style={{minWidth: '0px'}}>
           <span className='fw-bold text-truncate'>{colorMap[data.color_id]}</span>
-          <span className='price-product-variant text-truncate'>{formatPrice(data?.price)}</span>
+          <span className='price-product-variant text-truncate text-dark'>{formatPrice(data?.price)}</span>
         </div>
       </button>
     </>

@@ -115,7 +115,7 @@ const Cart = () => {
                 </div>
               </>) : (
                 <>
-                  <img width={300} src="https://cdni.iconscout.com/illustration/premium/thumb/empty-cart-7359557-6024626.png" alt="" />
+                  <img width={300} src={`${env.VITE_CLIENT_BASE_URL}/empty-cart-7359557-6024626.jpg`} alt="" />
                   <p>Không có sản phẩm nào trong giỏ hàng</p>
                   <Link to="/">Trang chủ</Link>
                 </>

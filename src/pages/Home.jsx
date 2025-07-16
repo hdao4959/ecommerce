@@ -21,10 +21,10 @@ const Home = () => {
       <Menu />
     {
       responseProducts.length > 0 && responseProducts.map((collection, index) => (
-      <section key={index}  id='section-outstanding-products' className='my-3'>
+      <section key={index}  id='section-outstanding-products'>
         <h2>{collection.category}</h2>
         <CardContainer products={collection.products} />
-        <LoadMore />
+        <LoadMore/>
       </section>
       ))
     }
