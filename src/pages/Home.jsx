@@ -8,13 +8,14 @@ import useApi from '../hooks/useApi'
 
 const Home = () => {
   const [responseProducts, setResponseProducts] = useState([]);
-  const {data:dataListProduct} = useApi(productService.getListProductForHomePage, true);
+  const {response, data:dataListProduct} = useApi(productService.getListProductForHomePage, true);
 
   useEffect(() => {
      if(dataListProduct){
       setResponseProducts(Object.values(dataListProduct))
      }
   }, [dataListProduct])
+  
   
   return (
     <>

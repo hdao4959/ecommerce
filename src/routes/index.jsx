@@ -8,6 +8,7 @@ import BlankLayout from "../layouts/BlankLayout";
 import Login from "../pages/Auth/Login";
 import orderRoutes from "./order.routes";
 import categoryRoutes from "./category.routes";
+import Search from "../pages/Search";
 
 const routes = createBrowserRouter([
   {
@@ -15,6 +16,9 @@ const routes = createBrowserRouter([
     children: [
       {
         index: true, element: <Home />
+      },
+      {
+        path: "/search", element: <Search/>
       },
       ...cartRoutes,
       ...productRoutes,

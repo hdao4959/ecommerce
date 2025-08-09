@@ -6,8 +6,13 @@ import { Avatar } from '@mui/material';
 import authService from '../../services/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/accountSlice';
+import useApi from '../../hooks/useApi';
+import productService from '../../services/productService';
 
 const Header = ({ account = {} }) => {
+  const [valueSearch, setValueSearch] = useState("");
+  console.log(valueSearch);
+  
   const navigate = useNavigate();
   const dispath = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
@@ -15,8 +20,9 @@ const Header = ({ account = {} }) => {
     total = total + item.quantity
     return total
   }, 0)
-  
+
   const [openMenuAccount, setOpenMenuAccount] = useState(false);
+  // const { data: dataSearchProduct, fetchApi: fetchSearchProduct } = useApi(productService.searchProducts);
   const menuRef = useRef();
 
   const handleOpenAccount = () => {
@@ -39,12 +45,21 @@ const Header = ({ account = {} }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const handleSearch = (event) => {
+    navigate("/search?q=" + valueSearch)  
+    event.preventDefault()
+  }
+
+
+
   return (
     <div id='header-client' className='row row-cols-2 row-cols-md-3 align-items-center px-3 px-sm-4 px-md-5'>
-      <Link id='logo' to={"/"} className='text-decoration-none'>HairPhones</Link>
+      <span>
+        <Link id='logo' to={"/"} className='text-decoration-none'>HairPhones</Link>
+      </span>
 
-      <form id='form-search'>
-        <input type="text" placeholder='Bạn cần tìm gì?' />
+      <form id='form-search' onSubmit={(event) => handleSearch(event)}>
+        <input type="text" value={valueSearch} onChange={(event) => setValueSearch(event.target.value)} placeholder='Bạn cần tìm gì?' />
       </form>
 
       <div className='text-end d-none d-md-block align-items-center'>

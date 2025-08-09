@@ -46,6 +46,15 @@ article {
   align-items: center;
 }
 
+.content-product {
+  max-height: 600px;
+  overflow-y: auto;
+}
+.content-product img {
+  max-width: 100%;
+  object-fit: contain;
+
+}
 
 #footer {
   display: none;

@@ -7,11 +7,12 @@ import env from '../../../config/env';
 const ButtonColor = ({ data, colorMap, active, productLine }) => {
   const serverBaseUrl = env.VITE_SERVER_BASE_URL
  
-
+  const searchParams = new URLSearchParams(location.search)
+  const idVariant = searchParams.get('var')
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    navigate("/products/" + productLine?.slug + "?id=" + data?._id)
+    navigate("/products/" + productLine?.slug + "?var=" + idVariant + "&id=" + data?.color_id)
   }
   return (
     <>

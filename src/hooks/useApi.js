@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react"
-const useApi = (apiFunc, autoFetch= false, ...initialArgs) => {
+const useApi = (apiFunc, autoFetch = false, ...initialArgs) => {
   const [response, setResponse] = useState(null);
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
@@ -9,8 +9,10 @@ const useApi = (apiFunc, autoFetch= false, ...initialArgs) => {
     try {
       setLoading(true)
       const response = await apiFunc(...args)
-      setResponse(response.data)    
-      setData(response.data.data);  
+      console.log(response);
+      
+      setResponse(response?.data)    
+      setData(response?.data?.data);  
       setError(null);
     } catch (error) {
       setError(error)

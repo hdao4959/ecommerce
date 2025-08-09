@@ -6,7 +6,7 @@ const GroupButtonColor = ({ variant, colorMap, productLine }) => {
   
   const location = useLocation()
   const search = new URLSearchParams(location.search);
-  const idParam = search.get('id')
+  const idColor = search.get('id')
 
   return (
     <div className='colors-product row row-cols-3 gap-1'>
@@ -14,7 +14,7 @@ const GroupButtonColor = ({ variant, colorMap, productLine }) => {
         variant?.colors?.map((color, index) => {
           return <ButtonColor
             key={index}
-            active={idParam == color?._id}
+            active={idColor == color?.color_id}
             colorMap={colorMap}
             productLine={productLine}
             data={{ ...color, price: color?.price ?? variant?.price }}

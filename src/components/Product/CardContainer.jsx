@@ -2,6 +2,7 @@ import React from 'react'
 import CardProduct from './CardProduct'
 const CardContainer = ({ products }) => {
   
+  console.log(products)
   return (
       <div className='card-container my-3'>
         {
