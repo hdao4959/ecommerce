@@ -43,6 +43,7 @@ const Detail = () => {
     }
   }, [dataProductDetail])
 
+  
   useEffect(() => {
     fetchProductDetail(slug, idParam)
   }, [])
@@ -64,10 +65,14 @@ const Detail = () => {
     navigate('/checkout')
   }
 
+  console.log(variantColor);
+  
+  
   const handleAddToCart = () => {
+
     dispath(addToCart(
       {
-        _id: idParam,
+        _id: variantColor._id,
         quantity: 1
       }
     ))

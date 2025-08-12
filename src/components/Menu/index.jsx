@@ -19,7 +19,7 @@ const Menu = () => {
     <div id='menu' className='d-flex row row-cols-1 row-cols-lg-2 row-cols-xl-3 my-3' style={{ minHeight: "100px" }}>
       <Left categories={categories} />
       <Center />
-      <Right />
+      {/* <Right /> */}
     </div>
   )
 }

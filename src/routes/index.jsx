@@ -9,6 +9,7 @@ import Login from "../pages/Auth/Login";
 import orderRoutes from "./order.routes";
 import categoryRoutes from "./category.routes";
 import Search from "../pages/Search";
+import authRoutes from "./auth.routes";
 
 const routes = createBrowserRouter([
   {
@@ -29,9 +30,7 @@ const routes = createBrowserRouter([
   }, {
     element: <BlankLayout/>,
     children: [
-      {
-        path: '/login', element: <Login/>
-      }
+      ...authRoutes
     ]
   }
 ])

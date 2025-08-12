@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
 import '../../Style/Css/Auth/Login.css'
-import axiosInstance from '../../utils/axios'
 import env from '../../config/env.js'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginWithGoogle } from '../../redux/slices/accountSlice.js'
 import authService from '../../services/authService.js'
@@ -80,7 +79,7 @@ const Login = () => {
             data-auto_prompt="false"
           ></div>
           <div
-            className="g_id_signin"
+            className="g_id_signin my-2"
             data-type="standard"
             data-size="large"
             data-theme="outline"
@@ -92,6 +91,11 @@ const Login = () => {
             <a href="#" className="text-decoration-none text-secondary">
               Quên mật khẩu?
             </a>
+          </div>
+          <div className="text-center">
+            Bạn chưa có tài khoản? <Link to="/register" className="text-decoration-none text-danger">
+              Đăng ký ngay
+            </Link>
           </div>
         </form>
       </div>
