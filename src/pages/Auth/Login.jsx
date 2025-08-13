@@ -1,24 +1,60 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import '../../Style/Css/Auth/Login.css'
 import env from '../../config/env.js'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { loginWithGoogle } from '../../redux/slices/accountSlice.js'
 import authService from '../../services/authService.js'
+import useApi from '../../hooks/useApi.js'
 const Login = () => {
+  const { loading: loadingLogin, data: dataLogin, fetchApi: fetchLogin } = useApi(authService.login)
+  const { data: dataLoginGg, fetchApi: fetchLoginGg} = useApi(authService.loginWithGoogle)
   const dispath = useDispatch();
   const navigate = useNavigate();
+  const [formLogin, setFormLogin] = useState({
+    phone_number: '',
+    password: '',
+    login_type: 'phone_number'
+  })
+
+  const handleChangeFormLogin = (event) => {
+    const { name, value } = event.target
+    setFormLogin(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleLogin = (event) => {
+    event.preventDefault()
+    if (!loadingLogin && formLogin) {
+      fetchLogin(formLogin)
+    }
+  }
+
+  useEffect(() => {
+    if (dataLogin?.account) {
+      authService.saveAccount(dataLogin.account)
+      if (dataLogin?.token) {
+        authService.saveToken(dataLogin.token)
+      }
+      navigate('/')
+    }
+  }, [dataLogin])
 
   const handleCredentialResponse = async (response) => {
     const credential = response.credential
-    try {
-      const account = await authService.loginWithGoogle(credential)
-      dispath(loginWithGoogle(account))
-      navigate('/')
-    } catch (error) {
-      alert(error)
-    }
+    fetchLoginGg(credential)
   }
+
+  useEffect(() => {
+    console.log(dataLoginGg);
+    
+    if(dataLoginGg){
+      dispath(loginWithGoogle(dataLoginGg))
+      navigate('/')
+    }
+  }, [dataLoginGg])
 
   useEffect(() => {
     window.handleCredentialResponse = handleCredentialResponse;
@@ -52,11 +88,14 @@ const Login = () => {
         <div className="text-center mb-4">
           <h3 className="text-danger login-title">Đăng nhập</h3>
         </div>
-        <form>
+        <form onSubmit={(e) => handleLogin(e)}>
           <div className="mb-3">
             <label className="form-label fs-6">Số điện thoại</label>
             <input
               type="text"
+              name='phone_number'
+              value={formLogin.phone_number}
+              onChange={(e) => handleChangeFormLogin(e)}
               className="form-control"
               placeholder="Nhập số điện thoại của bạn"
             />
@@ -64,13 +103,16 @@ const Login = () => {
           <div className="mb-4">
             <label className="form-label fs-6">Mật khẩu</label>
             <input
+              name='password'
+              value={formLogin.password}
+              onChange={(e) => handleChangeFormLogin(e)}
               type="password"
               className="form-control"
               placeholder="Nhập mật khẩu của bạn"
             />
           </div>
           <div className="d-grid mb-3">
-            <button className="btn btn-danger">Đăng nhập</button>
+            <button type='submit' className="btn btn-danger">Đăng nhập</button>
           </div>
           <div
             id="g_id_onload"

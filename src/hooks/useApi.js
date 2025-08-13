@@ -9,13 +9,12 @@ const useApi = (apiFunc, autoFetch = false, ...initialArgs) => {
     try {
       setLoading(true)
       const response = await apiFunc(...args)
-      console.log(response);
-      
       setResponse(response?.data)    
       setData(response?.data?.data);  
       setError(null);
     } catch (error) {
       setError(error)
+      alert(error?.response?.data?.errors || error?.response?.data?.message || "Lỗi không xác định!")
     } finally{
       setLoading(false)
     }

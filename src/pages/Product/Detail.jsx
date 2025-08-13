@@ -12,6 +12,7 @@ import { setCheckoutItems } from '../../redux/slices/checkoutSlice'
 import productService from '../../services/productService'
 import useApi from '../../hooks/useApi'
 import Spinner from '../../components/Spinner'
+import Comment from '../../components/Comment'
 const Detail = () => {
   const dispath = useDispatch();
   const serverBaseUrl = env.VITE_SERVER_BASE_URL;
@@ -43,7 +44,7 @@ const Detail = () => {
     }
   }, [dataProductDetail])
 
-  
+
   useEffect(() => {
     fetchProductDetail(slug, idParam)
   }, [])
@@ -66,8 +67,8 @@ const Detail = () => {
   }
 
   console.log(variantColor);
-  
-  
+
+
   const handleAddToCart = () => {
 
     dispath(addToCart(
@@ -121,17 +122,28 @@ const Detail = () => {
               </div>
             </div>
 
-            <div className='row row-cols-1 row-cols-md-2'>
-              <div className='col-md-8 card shadow py-2'>
-                <h3>Thông tin sản phẩm</h3>
-                <div className='content-product' dangerouslySetInnerHTML={{ __html: variant?.description }}></div>
+            <div className="row">
+              <div className="col-md-8 mb-3">
+                <div className="card shadow h-100">
+                  <h3 className="p-2">Thông tin sản phẩm</h3>
+                  <div
+                    className="content-product p-2"
+                    dangerouslySetInnerHTML={{ __html: variant?.description }}
+                  ></div>
+                </div>
               </div>
-              <div className='col-md-4'>
-                <div className='card p-2 shadow'>
-                <h3>Thông số kĩ thuật</h3>
+
+              <div className="col-md-4 mb-3">
+                <div className="card shadow h-100">
+                  <h3 className="p-2">Thông số kĩ thuật</h3>
                   <TableTechnical variant={variant} />
                 </div>
               </div>
+            </div>
+
+
+            <div>
+              <Comment />
             </div>
           </div>
       }

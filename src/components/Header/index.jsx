@@ -3,15 +3,11 @@ import "../../Style/Css/Header.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '@mui/material';
-import authService from '../../services/authService';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../redux/slices/accountSlice';
-import useApi from '../../hooks/useApi';
-import productService from '../../services/productService';
 
 const Header = ({ account = {} }) => {
   const [valueSearch, setValueSearch] = useState("");
-  console.log(valueSearch);
   
   const navigate = useNavigate();
   const dispath = useDispatch();
@@ -22,7 +18,6 @@ const Header = ({ account = {} }) => {
   }, 0)
 
   const [openMenuAccount, setOpenMenuAccount] = useState(false);
-  // const { data: dataSearchProduct, fetchApi: fetchSearchProduct } = useApi(productService.searchProducts);
   const menuRef = useRef();
 
   const handleOpenAccount = () => {
@@ -74,10 +69,10 @@ const Header = ({ account = {} }) => {
           </Link>
 
           {
-            account && account.picture ? (
+            account ? (
               <div className="position-relative" ref={menuRef}>
                 <Avatar
-                  src={account.picture}
+                  src={account?.picture}
                   onClick={handleOpenAccount}
                   style={{ cursor: 'pointer', marginLeft: '10px' }}
                 />

@@ -9,7 +9,7 @@ const MainLayout = () => {
   const [account, setAccount] = useState({})
 
   useEffect(() => {
-    const acc = JSON.parse(localStorage?.getItem('account'));
+    const acc = JSON.parse(sessionStorage?.getItem('account'));
     setAccount(acc)
   }, [])
   
