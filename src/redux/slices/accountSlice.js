@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import authService from "../../services/authService"
 
-const initialState = JSON.parse(sessionStorage.getItem('account')) || null
+const initialState =  authService.getAccount() ?  JSON.parse(authService.getAccount()) : null
 const accountSlice = createSlice({
   name: 'account',
   initialState,

@@ -1,6 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import "../../Style/Css/Header.css";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link, useNavigate } from 'react-router-dom';
 import { Avatar } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +6,7 @@ import { logout } from '../../redux/slices/accountSlice';
 
 const Header = ({ account = {} }) => {
   const [valueSearch, setValueSearch] = useState("");
-  
+
   const navigate = useNavigate();
   const dispath = useDispatch();
   const cartItems = useSelector(state => state.cart.items);
@@ -41,27 +39,34 @@ const Header = ({ account = {} }) => {
   }, []);
 
   const handleSearch = (event) => {
-    navigate("/search?q=" + valueSearch)  
+    navigate("/search?q=" + valueSearch)
     event.preventDefault()
   }
 
 
 
   return (
-    <div id='header-client' className='row row-cols-2 row-cols-md-3 align-items-center px-3 px-sm-4 px-md-5'>
-      <span>
-        <Link id='logo' to={"/"} className='text-decoration-none'>HairPhones</Link>
+    <div id='header-client' className='row row-cols-2 row-cols-md-3 position-fixed top-0 start-0 g-0 align-items-center px-3 px-sm-4 px-md-5 w-100' style={{
+      backgroundColor: "#d70018",
+      height: "64px",
+      // overflow: 'hidden',
+      zIndex: 999
+    }}>
+      <span className='col'>
+        <Link id='logo' to={"/"} className='text-decoration-none fs-1 fw-bold text-light'>HairPhones</Link>
       </span>
 
-      <form id='form-search' onSubmit={(event) => handleSearch(event)}>
-        <input type="text" value={valueSearch} onChange={(event) => setValueSearch(event.target.value)} placeholder='Bạn cần tìm gì?' />
+      <form className='col h-100 align-content-center text-center' id='form-search' onSubmit={(event) => handleSearch(event)}>
+        <input className='border-0 no-outline fs-4 rounded-4 px-3 w-100' style={{
+          // width: "100%",
+          // height: '40px',
+        }} type="text" value={valueSearch} onChange={(event) => setValueSearch(event.target.value)} placeholder='Bạn cần tìm gì?' />
       </form>
 
-      <div className='text-end d-none d-md-block align-items-center'>
+      <div className='col-auto h-100 align-content-center col text-end d-none d-md-block align-items-center'>
         <div className='d-flex justify-content-end align-items-center'>
-
-          <Link to="/cart" className='position-relative btn button-header bg-light'>
-            <AddShoppingCartIcon />
+          <Link to="/cart" className='me-1 position-relative btn button-header bg-light'>
+            <i className="fa-solid fa-sm fa-cart-plus"></i>
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
               {quantityItem}
               <span className="visually-hidden">unread messages</span>
@@ -110,7 +115,7 @@ const Header = ({ account = {} }) => {
 
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

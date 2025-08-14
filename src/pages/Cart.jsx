@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { mockData } from '../data/mock-data'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { formatPrice } from '../utils/formatPrice';
 import { useEffect } from 'react';
 import axiosInstance from '../utils/axios';
@@ -95,7 +94,7 @@ const Cart = () => {
                             </div>
                           </div>
                           <div className='col-1 d-flex justify-content-center align-items-center'>
-                            <button onClick={() => handleRemoveItem(item._id)} className='btn text-danger'><DeleteOutlineIcon /></button>
+                            <button onClick={() => handleRemoveItem(item._id)} className='btn text-danger'><i className="fa-solid fa-trash"></i></button>
 
                           </div>
                         </div>

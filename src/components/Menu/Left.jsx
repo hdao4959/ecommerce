@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Card } from 'react-bootstrap'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link } from 'react-router-dom';
 
 const Left = ({ categories }) => {
@@ -64,7 +61,7 @@ const Left = ({ categories }) => {
               <span>{cate.name}</span>
               {
                 currentParentId == cate._id ?
-                  <ExpandMoreIcon /> : <ExpandLessIcon />
+                  <i class="fa-solid fa-angle-down"></i> : <i className="fa-solid fa-angle-up"></i>
               }
             </Link>
 
@@ -73,8 +70,7 @@ const Left = ({ categories }) => {
                 categoriesMap?.[cate._id.toString()]?.children?.map((child, index) => (
                   <Link to={`/category/${child?._id}`} key={index} className={`link-category`}>
                     <span>
-                      <ChevronRightIcon fontSize='small' />
-                      {child.name}
+                      <i className="fa-solid fa-sm fa-angle-right"></i>  {child.name}
                       </span>
                   </Link>
                 ))

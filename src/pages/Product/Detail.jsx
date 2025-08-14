@@ -3,7 +3,6 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import GroupButtonColor from '../../components/Variant/GroupButtonColor'
 import GroupButtonVariant from '../../components/Variant/GroupButtonVariant'
 import { formatPrice } from '../../utils/formatPrice'
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import TableTechnical from '../../components/Product/TableTechnical'
 import env from '../../config/env'
 import { useDispatch } from 'react-redux'
@@ -13,6 +12,7 @@ import productService from '../../services/productService'
 import useApi from '../../hooks/useApi'
 import Spinner from '../../components/Spinner'
 import Comment from '../../components/Comment'
+import VoteAnalysis from '../../components/VoteAnalysis.jsx'
 const Detail = () => {
   const dispath = useDispatch();
   const serverBaseUrl = env.VITE_SERVER_BASE_URL;
@@ -34,8 +34,6 @@ const Detail = () => {
 
   const { data: dataProductDetail, loading: loadingProductDetail, fetchApi: fetchProductDetail } = useApi(productService.getProductDetail)
 
-  console.log(dataProductDetail);
-
   useEffect(() => {
     if (dataProductDetail) {
       setProductLine(dataProductDetail?.productLine)
@@ -52,7 +50,6 @@ const Detail = () => {
   let variant = null;
   let variantColor = null;
 
-
   if (Array.isArray(variants) && variants.length > 0) {
     variant = variants.find(variant => variant._id == idVariant)
     variantColor = variant?.colors.find(color => color?.color_id == idParam)
@@ -66,9 +63,6 @@ const Detail = () => {
     navigate('/checkout')
   }
 
-  console.log(variantColor);
-
-
   const handleAddToCart = () => {
 
     dispath(addToCart(
@@ -77,7 +71,6 @@ const Detail = () => {
         quantity: 1
       }
     ))
-
     alert("Đã thêm sản phẩm thành công vào giỏ hàng")
   }
 
@@ -117,7 +110,7 @@ const Detail = () => {
                 <h2 className='text-danger'>Giá: {formatPrice(variantColor?.price)}</h2>
                 <div className='row gap-1 row-cols-2'>
                   <button onClick={() => handleBuyNow()} className='btn btn-danger fw-bold btn-xxl col-6 col-lg-7 fs-4'>Mua ngay</button>
-                  <button onClick={() => handleAddToCart()} className='btn border-danger border-2 text-danger fw-bold col-5 col-lg-4 d-flex  align-items-center'><AddShoppingCartIcon />Thêm vào giỏ</button>
+                  <button onClick={() => handleAddToCart()} className='btn border-danger border-2 text-danger fw-bold col-5 col-lg-4 d-flex  align-items-center'><i className="fa-solid fa-cart-plus px-2 "></i>Thêm vào giỏ</button>
                 </div>
               </div>
             </div>
@@ -141,8 +134,9 @@ const Detail = () => {
               </div>
             </div>
 
-
-            <div>
+            <div className='card bg-light shadow p-2'>
+              <h3>Đánh giá {productLine.name + variant?.name}</h3>
+              <VoteAnalysis />
               <Comment />
             </div>
           </div>

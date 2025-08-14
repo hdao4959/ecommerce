@@ -50,9 +50,6 @@
   display: flex;
   justify-content: space-between;
 }
-.stars{
-  color: rgb(255, 179, 0);
-}
 
 .icon-favorite:hover{
   cursor: pointer;

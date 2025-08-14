@@ -1,11 +1,10 @@
 import React from 'react'
-import StarIcon from '@mui/icons-material/Star';
 const CommentItem = ({ item }) => {
   const Stars = () => {
     const result = []
     for (var i = 0; i < item?.vote; i++) {
       result.push(
-        <StarIcon fontSize='small' className='text-warning' />
+        (<i key={i} className="fa-solid fa-star"></i>)
       )
     }
     return <span className='px-1 align-items-center '>
@@ -24,8 +23,8 @@ const CommentItem = ({ item }) => {
           }
           <div className='my-2'>
             {
-              item?.tags?.map(item => (
-                <span className=' badge bg-secondary me-1'>{item}</span>
+              item?.tags?.map((item, index) => (
+                <span key={index} className=' badge bg-secondary me-1'>{item}</span>
               ))
             }
           </div>

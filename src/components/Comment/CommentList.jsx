@@ -30,8 +30,8 @@ const CommentList = () => {
       overflowY: 'auto'
     }}>  
       {
-        data?.length && data.map(item => (
-          <CommentItem item={item}/>
+        data?.length && data.map((item, index) => (
+          <CommentItem key={index} item={item}/>
         ))
       }
     </div>
