@@ -2,8 +2,6 @@ import { useState } from "react";
 import ModalComment from "./ModalComment";
 
 const VoteAnalysis = () => {
-  
-
   return (
     <div className="card shadow" style={{
       height: "150px"

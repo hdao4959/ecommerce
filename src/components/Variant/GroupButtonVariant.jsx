@@ -1,10 +1,15 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { memo, useContext, useEffect, useState } from 'react'
 import ButtonVariant from './Button/ButtonVariant'
 import { useLocation } from 'react-router-dom';
+import { ProductLineContext } from '../../contexts/DetailProviders/ProductLineContext';
+import { VariantContext } from '../../contexts/DetailProviders/VariantContext';
+import { VariantsContext } from '../../contexts/DetailProviders/VariantsContext';
 
-const GroupButtonVariant = ({ variants = [], productLine = {} }) => {
-
-  const [variant, setVariant] = useState(null)
+const GroupButtonVariant = () => {
+  const { productLine } = useContext(ProductLineContext)
+  const { variants } = useContext(VariantsContext)
+  const { variant, setVariant } = useContext(VariantContext)
+  
   const location = useLocation()
   const searchParams = new URLSearchParams(location.search);
   const id = searchParams.get('id')
@@ -17,7 +22,7 @@ const GroupButtonVariant = ({ variants = [], productLine = {} }) => {
     setVariant(foundVariant)
 
   }, [id, variants])
-  
+
   return (
     <div className='variants-product row row-cols-3 gap-1'>
       {Array.isArray(variants) && variant &&

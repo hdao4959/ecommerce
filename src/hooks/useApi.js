@@ -9,7 +9,7 @@ const useApi = (apiFunc, autoFetch = false, ...initialArgs) => {
     try {
       setLoading(true)
       const response = await apiFunc(...args)
-      setResponse(response?.data)    
+      setResponse(response?.data)     
       setData(response?.data?.data);  
       setError(null);
     } catch (error) {
@@ -27,7 +27,7 @@ const useApi = (apiFunc, autoFetch = false, ...initialArgs) => {
   }, [])
 
   return {
-    loading, response, data, error, fetchApi
+    loading, response, data, error, fetchApi, setData
   }
 }
 

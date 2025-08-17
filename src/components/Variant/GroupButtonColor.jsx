@@ -1,9 +1,11 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import ButtonColor from './Button/ButtonColor'
 import { useLocation } from 'react-router-dom';
+import { ProductLineContext } from '../../contexts/DetailProviders/ProductLineContext';
+import { VariantContext } from '../../contexts/DetailProviders/VariantContext';
 
-const GroupButtonColor = ({ variant, colorMap, productLine }) => {
-  
+const GroupButtonColor = ({ colorMap }) => {
+  const {variant} = useContext(VariantContext)
   const location = useLocation()
   const search = new URLSearchParams(location.search);
   const idColor = search.get('id')
@@ -16,7 +18,6 @@ const GroupButtonColor = ({ variant, colorMap, productLine }) => {
             key={index}
             active={idColor == color?.color_id}
             colorMap={colorMap}
-            productLine={productLine}
             data={{ ...color, price: color?.price ?? variant?.price }}
           />
         })

@@ -14,17 +14,11 @@ const index = () => {
     offset: 0,
     limit: 10
   })
-  const [products, setProducts] = useState([]);
 
   const { loading: loadingForProductOfCate, data: dataProducts, fetchApi: getProductForCategory } = useApi(categoryService.getProductsForCategory);
 
-  // useEffect(() => {
-  //   setProducts(dataProducts?.products)
-  // }, [dataProducts?.products])
-
   const changeQuery = (sortBy, orderBy) => {
     if (sortBy !== query?.sortBy || orderBy !== query?.orderBy) {
-      // setProducts([]);
       setQuery(prev => ({
         ...prev,
         sortBy,

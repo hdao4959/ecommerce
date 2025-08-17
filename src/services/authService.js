@@ -4,6 +4,10 @@ const getAccount = () => {
   return sessionStorage.getItem('account') || null
 }
 
+const getToken = () => {
+  return sessionStorage.getItem('token') || null
+}
+
 const loginWithGoogle = (credential) => {
   if (!credential) return
   return axiosInstance.post('/auth/google', { token: credential })
@@ -53,5 +57,6 @@ export default {
   register,
   removeToken,
   login,
-  saveToken
+  saveToken,
+  getToken
 }

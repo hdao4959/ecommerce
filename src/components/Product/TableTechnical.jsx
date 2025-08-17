@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { VariantContext } from '../../contexts/DetailProviders/VariantContext'
 
-const TableTechnical = ({ variant }) => {
+const TableTechnical = () => {
+  const {variant} = useContext(VariantContext)
   return (
       <div className='border border-1 rounded ' style={{ maxHeight: "500px", overflowY: 'auto' }}>
         <table className='table table-striped '>

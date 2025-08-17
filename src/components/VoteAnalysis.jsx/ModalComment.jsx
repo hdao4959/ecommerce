@@ -1,9 +1,21 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import useApi from '../../hooks/useApi'
+import commentService from '../../services/commentService'
+import { CommentContext } from '../../contexts/DetailProviders/CommentContext'
 
 const ModalComment = () => {
+  const { response: responsePostComment, data: dataPostComment, fetchApi: fetchPostComment } = useApi(commentService.post);
+
+  const { setComments } = useContext(CommentContext)
+
   const navigate = useNavigate()
+  const location = useLocation()
+  const { slug } = useParams()
+
+  const searchParams = new URLSearchParams(location.search)
+  const idVariant = searchParams.get('var');
   const account = useSelector(state => state.account)
 
   const badges = [{
@@ -17,11 +29,16 @@ const ModalComment = () => {
     name: 'Chất lượng camera tốt'
   }]
 
-  const [formComment, setFormComment] = useState({
+  const initialFormComment = {
     comment: '',
     vote: null,
-    badges: []
-  })
+    badges: [],
+    variant_id: idVariant,
+    slug: slug
+  }
+
+
+  const [formComment, setFormComment] = useState(initialFormComment)
 
   const ShowStars = () => {
     const stars = ["Rất tệ", "Tệ", "Bình thường", "Tốt", "Tuyệt vời"];
@@ -45,17 +62,20 @@ const ModalComment = () => {
 
   }
 
-  const handleRedirectToLogin = () => {
+  const handleHideModal = () => {
     const modalElement = document.getElementById('comment_modal')
     const modal = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement)
     modal.hide()
+  }
+
+  const handleRedirectToLogin = () => {
+    handleHideModal()
     navigate('/login')
+
   }
 
   const handleChange = (event) => {
     const { name, value, type, checked } = event.target
-    console.log(value);
-
     setFormComment(prev => ({
       ...prev,
       [type == "checkbox" ? 'badges' : name]: type === "checkbox" ?
@@ -65,9 +85,20 @@ const ModalComment = () => {
   }
 
   const handleComment = () => {
-    console.log(formComment);
-
+    fetchPostComment(formComment)
   }
+
+  useEffect(() => {
+    if (responsePostComment?.success) {
+      console.log(dataPostComment);
+      setFormComment(initialFormComment)
+      setComments(prev => ([
+        dataPostComment?.comment, ...prev
+      ]))
+      handleHideModal()
+
+    }
+  }, [responsePostComment])
 
   return (
     <div
