@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import useApi from '../../hooks/useApi.js';
 import commentService from '../../services/commentService.js';
 import { CommentContext } from '../../contexts/DetailProviders/CommentContext.jsx';
+import env from '../../config/env.js'
 const CommentItem = ({ item }) => {
   const {response: responseDeleteComment, fetchApi: fetchDeleteComment } = useApi(commentService.destroy);
   const account = useSelector(state => state.account)
@@ -35,7 +36,7 @@ const CommentItem = ({ item }) => {
     <>
       <div className='d-flex justify-content-around'>
         <div className='p-2'>
-          <img className='rounded-5' src={`${item?.user?.picture || "/avatar_white.jpg"}`} alt="" width={"40px"} />
+          <img className='rounded-5' src={`${item?.user?.picture || env.VITE_SERVER_BASE_URL + "avatar_white.jpg"}`} alt="" width={"40px"} />
         </div>
         <div className='flex-fill'>
           <strong className='text-end'>{item?.user?.name}</strong>

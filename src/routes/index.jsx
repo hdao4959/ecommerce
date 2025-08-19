@@ -10,16 +10,18 @@ import orderRoutes from "./order.routes";
 import categoryRoutes from "./category.routes";
 import Search from "../pages/Search";
 import authRoutes from "./auth.routes";
-
+import HomeProviders from "../contexts/HomeProviders";
 const routes = createBrowserRouter([
   {
     element: <MainLayout />,
     children: [
       {
-        index: true, element: <Home />
+        index: true, element: (<HomeProviders>
+          <Home />
+        </HomeProviders>)
       },
       {
-        path: "/search", element: <Search/>
+        path: "/search", element: <Search />
       },
       ...cartRoutes,
       ...productRoutes,
@@ -28,7 +30,7 @@ const routes = createBrowserRouter([
       ...categoryRoutes
     ]
   }, {
-    element: <BlankLayout/>,
+    element: <BlankLayout />,
     children: [
       ...authRoutes
     ]
