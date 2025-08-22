@@ -30,13 +30,11 @@ const saveToken = (token) => {
   sessionStorage.setItem('token', token)
 }
 
-const getAccountByGoogleId = async (googleId) => {
-  if (!googleId) return null
-  const { data } = await axiosInstance.post('/auth/account', {
-    googleId: googleId
-  })
-  return data.data.account
+const getInforAccount = () => {
+  return axiosInstance.get('/auth/info')
 }
+
+
 
 const register = (data) => {
   if (!data) return
@@ -53,10 +51,10 @@ export default {
   saveAccount,
   removeAccount,
   getAccount,
-  getAccountByGoogleId,
   register,
   removeToken,
   login,
   saveToken,
-  getToken
+  getToken,
+  getInforAccount
 }

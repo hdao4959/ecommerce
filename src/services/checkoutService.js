@@ -17,8 +17,7 @@ const previewCheckout = async (items) => {
   return responseCheckout
 }
 
-const handleCheckout = async (data) => {
-  try {
+const handleCheckout =  (data) => {
     data = {
       ...data, 
       bankCode: '',
@@ -26,13 +25,7 @@ const handleCheckout = async (data) => {
       orderType: 'other',
       language: ''
     }
-    const response = await axiosInstance.post('create_payment_url', data);
-    return response.data
-  } catch (error) {
-    console.log(error);
-
-  }
-
+    return axiosInstance.post('create_payment_url', data);
 }
 export default {
   saveCheckoutState, loadCheckoutState, previewCheckout, handleCheckout
