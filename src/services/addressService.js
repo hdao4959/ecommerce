@@ -1,27 +1,23 @@
 
+import axios from "axios";
 import axiosInstance from "../utils/axios";
 
 const getProvinces = () => {
   return axiosInstance.get('/location/provinces')
 }
 
-// const getDistrictsByProvince = async(idProvince) => {
-//   const res = await fetch(`https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${idProvince}&limit=-1`)
-//   const {data} = await res.json();
-//   return data
-// }
 const getDistrictsByProvince = (provinceCode) => {
   return axiosInstance.get('/location/districts?provinceCode=' +  provinceCode )
 }
 
-const getWardsByDistrict = async(idDistrict) => {
-  const res = await fetch(`https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${idDistrict}&limit=-1`)
-  const {data} = await res.json();
-  return data
+const getWardsByDistrict = (districtCode) => {
+  return axiosInstance.get('/location/wards?districtCode=' + districtCode)
 }
 
-
-
+const reverseGeoCoding = async (address) => {
+    const { data } = await axios.get(`https://api.distancematrix.ai/maps/api/geocode/json?address=${address}&key=A5hX52xrEZ8pK2tgkH1EI2gKnpX20bLQNb1qEb6cHfmJJ2zgxApBY7m2rIfMOjdV`)
+    return data
+  }
 export default {
-  getProvinces, getDistrictsByProvince, getWardsByDistrict
+  getProvinces, getDistrictsByProvince, getWardsByDistrict, reverseGeoCoding
 }

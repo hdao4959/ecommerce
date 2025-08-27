@@ -22,7 +22,7 @@ const MainLayout = () => {
           <Outlet />
         </article>
         <Footer />
-        <BottomNavigator />
+        {/* <BottomNavigator /> */}
       </div>
     </>
   )
